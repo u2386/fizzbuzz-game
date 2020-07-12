@@ -33,7 +33,7 @@ def rule(predicate, action):
     return wrapped
 
 
-def any(*rules):
+def any_(*rules):
     def wrapped(*facts):
         for rule in rules:
             if not rule(*facts):
@@ -43,7 +43,7 @@ def any(*rules):
     return wrapped
 
 
-def all(*rules):
+def all_(*rules):
     def wrapped(*facts):
         for rule in rules:
             rule(*facts)
@@ -52,13 +52,13 @@ def all(*rules):
 
 
 def fizzbuzz(n):
-    spec = any(
+    spec = any_(
         rule(and_(times(3), times(5)), lambda _: print("fizzbuzz", end="")),
         rule(times(3), lambda _: print("fizz", end="")),
         rule(times(5), lambda _: print("buzz", end="")),
         rule(always(), lambda x: print(x, end="")),
     )
-    spec = all(rule(contains("7"), lambda _: print("whizz", end="")), spec)
+    spec = all_(rule(contains("7"), lambda _: print("whizz", end="")), spec)
 
     for i in range(1, n):
         print(i, "", end="")
